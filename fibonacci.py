@@ -5,9 +5,10 @@ class Fibonacci:
     def __init__(self, n):
         try:
             self.n = abs(int(float(n)))
-            self.fibonacci_list = list()
         except ValueError:
             raise ValueError('Write correct element number, NOT STRING')
+
+        self.fibonacci_list = list()
         self._start()
 
     def __str__(self):
@@ -18,13 +19,16 @@ class Fibonacci:
 
     def _fib(self):
         a, b = 0, 1
+
         while True:
             yield a
             a, b = b, a + b
 
     def _start(self):
         for index, fibonacci_number in enumerate(self._fib()):
+
             self.fibonacci_list.append((index, fibonacci_number))
+
             if index == self.n:
                 break
 
