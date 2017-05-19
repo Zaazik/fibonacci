@@ -3,7 +3,6 @@ import unittest
 from fibonacci import Fibonacci
 
 
-
 class TestFibonacciMethods(unittest.TestCase):
     def setUp(self):
         self.TEST_CASE = [10, -10, 10.1, -10.1, '10', '-10', '10.1', '-10.1', ]
