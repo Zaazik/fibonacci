@@ -5,8 +5,9 @@ import threading
 from time import sleep
 from tkinter import Tk, Button, Text
 from tkinter.filedialog import askopenfilename
-
+from tkinter import messagebox
 module_logger = logging.getLogger(__name__)
+import sys
 
 import re
 
@@ -103,6 +104,7 @@ def pars_pdf(path):
 class simpleapp_tk(Tk):
     def __init__(self, parent):
         Tk.__init__(self, parent)
+        self.protocol("WM_DELETE_WINDOW", self.on_closing)
         self.parent = parent
 
         self.grid()
@@ -112,6 +114,14 @@ class simpleapp_tk(Tk):
 
         self.mytext = Text(self, state="disabled")
         self.mytext.grid(column=0, row=1)
+
+    def on_closing(self):
+        if messagebox.askokcancel("Quit", "Do you want to quit?"):
+            self.destroy()
+            os._exit(1)
+
+
+
 
 
 class MyHandlerText(logging.StreamHandler):
@@ -157,13 +167,6 @@ if __name__ == "__main__":
     guiHandler = MyHandlerText(app.mytext)
     module_logger.addHandler(guiHandler)
     module_logger.setLevel(logging.INFO)
-
-
-    def on_closing():
-        app.destroy()
-        exit(0)
-
-    app.protocol("WM_DELETE_WINDOW", on_closing)
 
     # start Tk
     app.mainloop()
